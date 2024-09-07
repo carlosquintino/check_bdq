@@ -13,7 +13,12 @@ df = pd.DataFrame(data)
 
 df_ge = ge.from_pandas(df)
 
-ex_gp = Expectations_group(df_ge,'completeness')
+ex_gp = Expectations_group(df_ge)
 
-response = ex_gp.completeness('Nome')
+response = ex_gp.completeness('Nome',
+                                min_value_col=1,
+                                max_value_col=6,
+                                max_value_df=10,
+                                min_value_df=2)
+                                
 print(response)
