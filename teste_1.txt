@@ -1,0 +1,27 @@
+Business data quality to dataframe teste_1
+Date and time start validation  2024-09-09 23:1254
+----------------------------------------
+
+Valdation Type : expect_column_values_to_not_be_null
+Validation column : Nome
+column : Nome
+result_format : BASIC
+validation status : True
+element_count : 4
+unexpected_count : 0
+unexpected_percent : 0.0
+unexpected_percent_total : 0.0
+partial_unexpected_list : []
+----------------------------------------
+
+Valdation Type : expect_table_row_count_to_be_between
+Dataframe validation
+min_value : 2
+max_value : 5
+result_format : BASIC
+validation status : True
+observed_value : 4
+----------------------------------------
+
+Date and time final validation 2024-09-09 23:1254
+----------------------------------------

@@ -42,6 +42,7 @@ class Coluns_expectations(Output):
                                 column=col_name,
                                 min_value=min_value,
                                 max_value=max_value)
+        
         super().generate_report(self.response)
     
 

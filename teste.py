@@ -1,4 +1,4 @@
-from expectations.dimension_expectation import Expectations_group
+from check_bdq import Check_bdq
 import great_expectations as ge
 import pandas as pd
 
@@ -12,8 +12,8 @@ data = {
 # Criando o DataFrame
 df = pd.DataFrame(data)
 
-df_ge = ge.from_pandas(df)
 
-response = df_ge.expect_column_values_to_not_be_null('Nome')
-                                
-print(type(response['success']))
+parameters = {"df_type":"pandas","Nome":{"dimension":"completeness","max_val":5,"min_val":2}}
+
+cck_bdq = Check_bdq(df,parameters,report=True,df_name='teste_1')
+cck_bdq.kickOff()
