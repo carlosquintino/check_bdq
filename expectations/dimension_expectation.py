@@ -6,16 +6,16 @@ class Expectations_group(Coluns_expectations):
         
         super().__init__(self.df)
     
-    def completeness(self,col,max_value_col,min_value_col,max_value_df,min_value_df):
+    def completeness(self,col,max_value,min_value):
         super().not_null(col_name=col)
 
         super().value_btw(
                 col_name=col,
-                max_value=max_value_col,
-                min_value=min_value_col)
+                max_value=max_value,
+                min_value=min_value)
         
-        super().df_count_btw(max_value=max_value_df,
-                             min_value=min_value_df
-                             )
-        
+        # super().df_count_btw(max_value=max_value,
+        #                      min_value=min_value
+        #                      )
+                
         

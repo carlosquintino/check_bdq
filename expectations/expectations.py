@@ -1,11 +1,12 @@
 import great_expectations as ge
-import pandas as pd
+from output.output import Output
 
 
-class Coluns_expectations():
-    def __init__(self,df):
+class Coluns_expectations(Output):
+    def __init__(self,df,df_name):
         self.df = df
-        pass
+        super().__init__(df_name)
+
 
     def not_null(self,col_name):
         self.response = self. \
@@ -13,6 +14,7 @@ class Coluns_expectations():
                             expect_column_values_to_not_be_null(
                                 col_name
                                 )
+        super().generate_report(self.response)
     
 
     def unique_vals(self,col_name):
@@ -21,6 +23,7 @@ class Coluns_expectations():
                             expect_column_values_to_be_unique(
                                 col_name
                                 )
+        super().generate_report(self.response)
 
     #Falta adicionar mascara
     def date_mask_equal(self,col_name):
@@ -29,6 +32,7 @@ class Coluns_expectations():
                             expect_column_values_to_match_strftime_format(
                                 col_name
                                 )
+        super().generate_report(self.response)
 
 
     def value_btw(self,col_name,min_value,max_value):
@@ -38,6 +42,7 @@ class Coluns_expectations():
                                 column=col_name,
                                 min_value=min_value,
                                 max_value=max_value)
+        super().generate_report(self.response)
     
 
     def df_count_btw(self,min_value,max_value):
@@ -47,5 +52,6 @@ class Coluns_expectations():
                                 min_value,
                                 max_value
                             )
+        super().generate_report(self.response)
 
         

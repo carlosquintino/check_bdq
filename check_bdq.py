@@ -1,26 +1,31 @@
 from expectations.dimension_expectation import Expectations_group
+from exception.exceptions import *
 import great_expectations as ge
-# from expectations.expectations import Coluns_expectations
+
 
 class Check_bdq(Expectations_group):
 
-    def __init__(self, df,parameters,verbose=False):
+    def __init__(self, df,parameters,report=False,df_name='',verbose=False):
         
+        if report and df_name == '':
+            raise InvalidPathException(df_name)
         self.df = df
         self.parameters = parameters
         self.keys = parameters.keys()
         self.type_df = parameters['type_df']
         self.verbose = verbose
 
-    def conver_df(self):
+    def convert_df(self):
         if self.type_df == 'pandas':
             self.df_ge = ge.from_pandas(self.df)
+        if self.type_df == 'spark':
+            self.df_ge = ge.from_pandas(self.df.to_pandas())
         
         super().__init__(self.df_ge)
     
     def kickOff(self):
         
-        self.type_df()
+        self.convert_df()
 
         for key in self.keys:
 
@@ -29,10 +34,8 @@ class Check_bdq(Expectations_group):
                 if group == 'completeness':
 
                     super().completeness(key,
-                                        max_value_col=key['max_val'],
-                                        min_value_col=key['min_val'],
-                                        max_value_df=key['max_val'],
-                                        min_value_df=key['min_val'])
+                                        max_value=key['max_val'],
+                                        min_value=key['min_val'])
 
             else:
                 validations = key['validations']
@@ -41,5 +44,5 @@ class Check_bdq(Expectations_group):
                         pass
                     else:
                         
-                        expec = f"super().not_null({key})"
+                        expec = f"super().{validation}({key})"
                         eval(expec)
